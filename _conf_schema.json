@@ -1,0 +1,12 @@
+{
+    "intercept_keywords": {
+        "description": "拦截关键词列表",
+        "type": "list",
+        "hint": "当机器人被艾特并收到列表中的完整关键词时，将不会作任何回应。",
+        "default": [
+            "闭嘴",
+            "别说话",
+            "安静"
+        ]
+    }
+}
