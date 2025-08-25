@@ -1,24 +1,42 @@
-from astrbot.api.event import filter, AstrMessageEvent, MessageEventResult
+# 只导入我们 100% 确定存在的模块
+from astrbot.api.event import filter, AstrMessageEvent
 from astrbot.api.star import Context, Star, register
+from astrbot.core.config.astrbot_config import AstrBotConfig
+# 从 astrbot.api 导入 logger，这是正确的日志记录方式
 from astrbot.api import logger
 
-@register("helloworld", "YourName", "一个简单的 Hello World 插件", "1.0.0")
-class MyPlugin(Star):
-    def __init__(self, context: Context):
+@register(
+    "astrbot_plugin_silent_interceptor",
+    "YourName",
+    "一个根据特定关键词拦截消息的插件",
+    "7.1.0 (Logging Fixed)",
+    "https://github.com/your-repo/astrbot_plugin_silent_interceptor"
+)
+class SilentInterceptorPlugin(Star):
+    def __init__(self, context: Context, config: AstrBotConfig):
         super().__init__(context)
+        # 这部分逻辑是正确的，保持不变
+        self.config = config
+        self.keywords = self.config.get("intercept_keywords", [])
 
-    async def initialize(self):
-        """可选择实现异步的插件初始化方法，当实例化该插件类之后会自动调用该方法。"""
-    
-    # 注册指令的装饰器。指令名为 helloworld。注册成功后，发送 `/helloworld` 就会触发这个指令，并回复 `你好, {user_name}!`
-    @filter.command("helloworld")
-    async def helloworld(self, event: AstrMessageEvent):
-        """这是一个 hello world 指令""" # 这是 handler 的描述，将会被解析方便用户了解插件内容。建议填写。
-        user_name = event.get_sender_name()
-        message_str = event.message_str # 用户发的纯文本消息字符串
-        message_chain = event.get_messages() # 用户所发的消息的消息链 # from astrbot.api.message_components import *
-        logger.info(message_chain)
-        yield event.plain_result(f"Hello, {user_name}, 你发了 {message_str}!") # 发送一条纯文本消息
+    # 使用一个能匹配所有文本消息的通用正则表达式
+    # 这样可以确保插件能被加载，并且函数能被触发
+    @filter.regex(r".*")
+    async def intercept_handler(self, event: AstrMessageEvent):
+        """
+        监听所有消息，并在函数内部进行精确的逻辑判断。
+        """
+        # 1. 判断消息是否是发给机器人的（这部分逻辑是正确的）
+        is_for_bot = event.is_private_chat() or event.is_at_or_wake_command
+        if not is_for_bot:
+            return
 
-    async def terminate(self):
-        """可选择实现异步的插件销毁方法，当插件被卸载/停用时会调用。"""
+        # 2. 获取纯文本消息
+        message_text = event.get_message_str().strip()
+
+        # 3. 检查消息是否在我们从配置中读取的动态关键词列表里
+        if message_text in self.keywords:
+            # 4. 如果匹配，就调用正确的终止方法
+            event.stop_event()
+            # 使用正确的 logger.info() 来记录日志
+            logger.info(f"成功拦截关键词: '{message_text}'")
