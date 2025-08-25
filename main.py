@@ -10,7 +10,7 @@ from astrbot.api import logger
     "YourName",
     "一个根据特定关键词拦截消息的插件",
     "7.1.0 (Logging Fixed)",
-    "https://github.com/your-repo/astrbot_plugin_silent_interceptor"
+    "https://github.com/Huanghun542/astrbot_plugin_silent_interceptor"
 )
 class SilentInterceptorPlugin(Star):
     def __init__(self, context: Context, config: AstrBotConfig):
