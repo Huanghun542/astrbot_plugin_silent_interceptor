@@ -1,13 +1,12 @@
-# 只导入我们 100% 确定存在的模块
 from astrbot.api.event import filter, AstrMessageEvent
 from astrbot.api.star import Context, Star, register
 from astrbot.core.config.astrbot_config import AstrBotConfig
-# 从 astrbot.api 导入 logger，这是正确的日志记录方式
+# 从 astrbot.api 导入 logger，进行日志记录
 from astrbot.api import logger
 
 @register(
     "astrbot_plugin_silent_interceptor",
-    "YourName",
+    "Huanghun",
     "一个根据特定关键词拦截消息的插件",
     "7.1.0 (Logging Fixed)",
     "https://github.com/Huanghun542/astrbot_plugin_silent_interceptor"
@@ -15,7 +14,6 @@ from astrbot.api import logger
 class SilentInterceptorPlugin(Star):
     def __init__(self, context: Context, config: AstrBotConfig):
         super().__init__(context)
-        # 这部分逻辑是正确的，保持不变
         self.config = config
         self.keywords = self.config.get("intercept_keywords", [])
 
