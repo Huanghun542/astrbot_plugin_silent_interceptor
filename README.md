@@ -7,11 +7,10 @@
 ![AstrBot v4.0+](https://img.shields.io/badge/AstrBot-v4.0+-purple.svg)
 ![GitHub stars](https://img.shields.io/github/stars/Huanghun542/astrbot_plugin_silent_interceptor?style=social)
 
-**一个优雅的 AstrBot 消息拦截插件**
+**一个 AstrBot 的消息拦截插件**
 
 *让机器人在需要的时候保持沉默* 🤐
 
-[安装教程](#-安装指南) · [使用方法](#-使用指南) · [问题反馈](https://github.com/Huanghun542/astrbot_plugin_silent_interceptor/issues)
 
 </div>
 
@@ -19,24 +18,17 @@
 
 ## 📖 插件简介
 
-Silent Interceptor 是一个轻量级的 AstrBot 插件，专为需要让机器人在特定场景下保持沉默而设计。当机器人被艾特并收到预设的关键词时，插件会智能拦截消息，阻止 LLM 生成任何回复，实现完美的"静音"效果。
+Silent Interceptor 是一个简易的插件。主要适用于那些连接了多个框架的机器人，当群友艾特bot使用其他框架的功能时，会触发到astrbot的LLM回复，本插件可以自定义关键词来进行拦截，当机器人被艾特并收到的关键词时，插件会拦截消息，阻止 LLM 生成任何回复
 
 ## ✨ 功能亮点
 
 <table>
 <tr>
-<td align="center" width="25%">
 
-### 🎯 智能拦截
-在 LLM 响应前精准捕获目标消息<br/>
-从根源阻止机器人回应
-
-</td>
 <td align="center" width="25%">
 
 ### 🔇 静默处理
 成功拦截后完全静音<br/>
-完美实现"闭嘴"、"安静"效果
 
 </td>
 <td align="center" width="25%">
@@ -152,17 +144,6 @@ graph LR
 
 ---
 
-## 🤝 贡献指南
-
-我们欢迎任何形式的贡献！
-
-### 如何贡献
-
-1. 🍴 Fork 本仓库
-2. 🔧 创建功能分支: `git checkout -b feature/your-feature`
-3. 💾 提交更改: `git commit -am 'Add some feature'`
-4. 📤 推送分支: `git push origin feature/your-feature`
-5. 📋 创建 Pull Request
 
 ### 问题反馈
 
@@ -179,7 +160,6 @@ graph LR
 - ✨ 初始版本发布
 - 🎯 支持消息拦截功能
 - ⚙️ 网页配置界面
-- 🔇 静默处理机制
 
 ---
 
